@@ -20,6 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class CouponController {
 
+	/**
+	 * Service to process coupon
+	 */
 	private final CouponService service;
 
 	@Autowired
@@ -29,9 +32,10 @@ public class CouponController {
 
 	@PostMapping("/coupon")
 	public CouponResponseDto processCoupon(@RequestBody CouponRequestDto request) {
-		log.info("Calling method with parameter {}", request);
-		service.processCoupon(request);
-		return CouponResponseDto.builder().build();
+		log.info("Request received to process coupon with items length {} and amount {}",
+			request.getItems().size(), request.getAmount());
+
+		return service.processCoupon(request);
 	}
 
 }

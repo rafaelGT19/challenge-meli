@@ -8,7 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * Coupon process request data
+ * Coupon process request model
  *
  * @author <a href="rasgut19@gmail.com">Rafael Gutierrez</a>
  * @version 1.0
