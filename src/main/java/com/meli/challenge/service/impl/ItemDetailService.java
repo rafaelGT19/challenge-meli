@@ -10,6 +10,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class ItemDetailService implements IItemDetailService {
 
+	/**
+	 * Feign client to perform call to external api
+	 */
 	private final ItemDetailFeignClient feignClient;
 
 	@Autowired
@@ -17,6 +20,9 @@ public class ItemDetailService implements IItemDetailService {
 		this.feignClient = feignClient;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	@Cacheable(
 		value = "itemsCache",

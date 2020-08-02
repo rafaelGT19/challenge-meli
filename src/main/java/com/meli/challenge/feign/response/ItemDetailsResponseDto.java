@@ -1,6 +1,7 @@
 
 package com.meli.challenge.feign.response;
 
+import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,8 +16,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ItemDetailsResponseDto {
+public class ItemDetailsResponseDto implements Serializable {
 
+	private static final long serialVersionUID = 4412282835060415937L;
 	/**
 	 * Item id
 	 */
