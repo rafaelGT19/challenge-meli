@@ -2,36 +2,69 @@ package com.meli.challenge.service.impl;
 
 import com.meli.challenge.dto.ItemDto;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
-public class CouponLogicProcessor {
+/**
+ * Performs combination optimization process to compute result
+ *
+ * @author <a href="rasgut19@gmail.com">Rafael Gutierrez</a>
+ * @version 1.0
+ * @since 1.0
+ */
+final class CouponLogicProcessor {
 
-	private Map<Float, List<ItemDto>> sums = new HashMap<>();
-	private Float max = 0F;
-	private List<ItemDto> input;
+	/**
+	 * Table to collect temporary results
+	 */
+	private Map<Float, List<ItemDto>> collectedResults = new HashMap<>();
+
+	/**
+	 * Max sum found
+	 */
+	private Float maximumSum = 0F;
+
+	/**
+	 * Array of items to process
+	 */
+	private ItemDto[] inputItems;
+
+	/**
+	 * Max allowed spend amount
+	 */
 	private Float limit;
 
-	public List<ItemDto> maxSum(List<ItemDto> input, float limit) {
-		this.input = input;
+	/**
+	 * Returns the subset of elements whose sum is the maximum possible less or equals than limit
+	 * @param input array of elements to perform compute
+	 * @param limit maximumSum allowed amount
+	 * @return
+	 */
+	final List<ItemDto> getSubsetWithMaxSum(List<ItemDto> input, float limit) {
+		this.inputItems = new ItemDto[input.size()];
+		this.inputItems = input.toArray(this.inputItems);
 		this.limit = limit;
 
 		this.collectSums(0F, 0, new ArrayList<>());
 
-		return this.sums.getOrDefault(this.max, null);
+		return this.collectedResults.getOrDefault(this.maximumSum, null);
 	}
 
+	/**
+	 * Recursive method to compute the best subset of elements to maximize spend
+	 * @param n temporary sum value
+	 * @param i index o element to process
+	 * @param values temporary collected elements
+	 */
 	private void collectSums(Float n, int i, List<ItemDto> values) {
-		for(; i < input.size(); i++) {
-			final Float sum = n + this.input.get(i).getPrice();
+		for(; i < inputItems.length; i++) {
+			final Float sum = n + this.inputItems[i].getPrice();
 			if(sum <= limit) {
-				values.add(input.get(i));
-				if(sum >= this.max && values.size() >= 1) {
-					this.max = sum;
-					sums.put(this.max, new ArrayList<>(values));
+				values.add(inputItems[i]);
+				if(sum >= this.maximumSum && values.size() >= 1) {
+					this.maximumSum = sum;
+					collectedResults.put(this.maximumSum, new ArrayList<>(values));
 				}
 				collectSums(sum, i+1, values);
 			}
