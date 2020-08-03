@@ -6,6 +6,7 @@ import com.meli.challenge.service.impl.CouponService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import javax.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -55,7 +56,7 @@ public class CouponController {
 			response = CouponResponseDto.class)
 	})
 	@PostMapping("/coupon")
-	public ResponseEntity<CouponResponseDto> processCoupon(@RequestBody CouponRequestDto request) {
+	public ResponseEntity<CouponResponseDto> processCoupon(@RequestBody @Valid CouponRequestDto request) {
 		log.info("Request received to process coupon with items length {} and amount {}",
 			request.getItems().size(), request.getAmount());
 
