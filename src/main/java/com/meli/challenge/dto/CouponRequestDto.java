@@ -5,6 +5,8 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.util.List;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -34,6 +36,8 @@ public class CouponRequestDto implements Serializable {
 		example = "[\"MCO465334695\",\"MCO540428115\"]"
 	)
 	@JsonProperty("item_ids")
+	@NotNull
+	@Size(min = 1)
 	private List<String> items;
 
 	/**
@@ -43,6 +47,7 @@ public class CouponRequestDto implements Serializable {
 		value = "Available amount to spend",
 		example = "1000.22"
 	)
+	@NotNull
 	private Float amount;
 
 }
